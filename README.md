@@ -23,51 +23,41 @@ CREATE DATABASE practice_db
  ```
 > create tables
 ```SQL
--- Table: public.DEPT
+-- Table: public.dept
 
--- DROP TABLE IF EXISTS public."DEPT";
+-- DROP TABLE IF EXISTS public.dept;
 
-CREATE TABLE IF NOT EXISTS public."DEPT"
+CREATE TABLE IF NOT EXISTS public.dept
 (
-    "DEPTNO" integer NOT NULL,
-    "DNAME" text COLLATE pg_catalog."default" NOT NULL,
-    "LOC" text COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT "DEPT_pkey" PRIMARY KEY ("DEPTNO")
+    "deptno" integer NOT NULL,
+    "dname" text NOT NULL,
+    "loc" text NOT NULL,
+    CONSTRAINT "DEPT_pkey" PRIMARY KEY ("deptno")
 )
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public."DEPT"
-    OWNER to postgres;
 
 ----------------------------
 
--- Table: public.EMP
+-- Table: public.emp
 
--- DROP TABLE IF EXISTS public."EMP";
+-- DROP TABLE IF EXISTS public.emp;
 
-CREATE TABLE IF NOT EXISTS public."EMP"
+CREATE TABLE IF NOT EXISTS public.emp
 (
-    "EMPNO" integer NOT NULL,
-    "ENAME" text COLLATE pg_catalog."default" NOT NULL,
-    "JOB" text COLLATE pg_catalog."default" NOT NULL,
-    "MGR" integer,
-    "HIREDATE" date NOT NULL,
-    "SAL" integer,
-    "COMM" integer,
-    "DEPTNO" integer NOT NULL,
-    CONSTRAINT "EMP_pkey" PRIMARY KEY ("EMPNO"),
-    CONSTRAINT "EMP_DEPT_FK" FOREIGN KEY ("DEPTNO")
-        REFERENCES public."DEPT" ("DEPTNO") MATCH SIMPLE
+    empno integer NOT NULL,
+    ename text NOT NULL,
+    job text NOT NULL,
+    mgr integer,
+    hiredate date NOT NULL,
+    sal integer,
+    comm integer,
+    deptno integer NOT NULL,
+    CONSTRAINT "EMP_pkey" PRIMARY KEY (empno),
+    CONSTRAINT "EMP_DEPT_FK" FOREIGN KEY (deptno)
+        REFERENCES public.dept (deptno) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE SET NULL
         NOT VALID
 )
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public."EMP"
-    OWNER to postgres;
 
 ```
 
@@ -75,8 +65,8 @@ ALTER TABLE IF EXISTS public."EMP"
 ```SQL
 TABLE : DEPT
 
-INSERT INTO public."DEPT"(
-	"DEPTNO", "DNAME", "LOC")
+INSERT INTO public.dept(
+	deptno, dname, loc)
 	VALUES
 (10,'ACCOUNTING','NEW YORK'),
 (20,'RESEARCH','DALLAS'),
@@ -87,8 +77,8 @@ INSERT INTO public."DEPT"(
 
 TABLE : EMP
 
-INSERT INTO public."EMP"(
-	"EMPNO", "ENAME", "JOB", "MGR", "HIREDATE", "SAL", "COMM", "DEPTNO")
+INSERT INTO public.emp(
+	empno, ename, job, mgr, hiredate, sal, comm, deptno)
 	VALUES 
 (7369,'SMITH','CLERK',7902,'17-Dec-80',800,null,20),
 (7499,'ALLEN','SALESMAN',7698,'20-Feb-81',1600,300,30),
